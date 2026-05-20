@@ -7,6 +7,7 @@
 </head>
 <body>
     <h1><?= htmlspecialchars($title ?? 'MVC PHP') ?></h1>
-    <p>Cấu trúc MVC PHP thuần đã sẵn sàng.</p>
+    <p>Xin chào, <strong><?= htmlspecialchars($_SESSION['username'] ?? 'Guest') ?></strong></p>
+    <p><a href="/auth/logout">Đăng xuất</a></p>
 </body>
 </html>
