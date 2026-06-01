@@ -9,13 +9,16 @@ class auth extends Controller
             $username = $_POST['username'] ?? '';
             $password = $_POST['password'] ?? '';
 
-            // Kiểm tra tài khoản (có thể thay bằng query database)
-            if ($username === 'admin' && $password === '123456') {
-                $_SESSION['username'] = $username;
-                header('Location: /home/index');
-                exit();
-            } else {
+            try {
+                $userModel = $this->model('User');
+                if ($userModel->verifyLogin($username, $password)) {
+                    $_SESSION['username'] = $username;
+                    header('Location: ' . BASE_URL . '/home/index');
+                    exit();
+                }
                 $error = 'Sai tên đăng nhập hoặc mật khẩu!';
+            } catch (Throwable $e) {
+                $error = 'Không kết nối được database. Mở ' . BASE_URL . '/dbtest/install để cài đặt.';
             }
         }
         $this->view('auth/login', ['title' => 'Đăng nhập', 'error' => $error]);
@@ -24,7 +27,7 @@ class auth extends Controller
     public function logout()
     {
         session_destroy();
-        header('Location: /auth/login');
+        header('Location: ' . BASE_URL . '/auth/login');
         exit();
     }
 }

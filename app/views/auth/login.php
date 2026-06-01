@@ -63,7 +63,7 @@
         <?php if (!empty($error)): ?>
             <p class="error"><?= htmlspecialchars($error) ?></p>
         <?php endif; ?>
-        <form method="POST" action="/auth/login">
+        <form method="POST" action="<?= BASE_URL ?>/auth/login">
             <input type="text" name="username" placeholder="Tên đăng nhập" required>
             <input type="password" name="password" placeholder="Mật khẩu" required>
             <button type="submit">Đăng nhập</button>

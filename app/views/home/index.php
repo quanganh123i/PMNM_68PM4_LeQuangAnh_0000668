@@ -8,6 +8,11 @@
 <body>
     <h1><?= htmlspecialchars($title ?? 'MVC PHP') ?></h1>
     <p>Xin chào, <strong><?= htmlspecialchars($_SESSION['username'] ?? 'Guest') ?></strong></p>
-    <p><a href="/auth/logout">Đăng xuất</a></p>
+    <p>
+        <a href="<?= BASE_URL ?>/students">Danh sách sinh viên</a> ·
+        <a href="<?= BASE_URL ?>/users">Danh sách users (DB)</a> ·
+        <a href="<?= BASE_URL ?>/dbtest">Kiểm tra DB</a> ·
+        <a href="<?= BASE_URL ?>/auth/logout">Đăng xuất</a>
+    </p>
 </body>
 </html>
