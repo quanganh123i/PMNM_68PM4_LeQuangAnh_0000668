@@ -5,8 +5,8 @@ class students extends Controller
     public function index()
     {
         try {
-            $studentModel = $this->model('Student');
-            $students = $studentModel->getAll();
+            $sinhVienModel = $this->model('SinhvienModel');
+            $students = $sinhVienModel->getAll();
 
             $this->view('students/index', [
                 'title' => 'Danh sách sinh viên',

@@ -1,6 +1,6 @@
 <?php
 
-class Student
+class SinhvienModel
 {
     private PDO $db;
 
@@ -18,13 +18,5 @@ class Student
         );
 
         return $stmt->fetchAll();
-    }
-
-    public function count(): int
-    {
-        $stmt = $this->db->query('SELECT COUNT(*) AS total FROM students');
-        $row = $stmt->fetch();
-
-        return (int) ($row['total'] ?? 0);
     }
 }
