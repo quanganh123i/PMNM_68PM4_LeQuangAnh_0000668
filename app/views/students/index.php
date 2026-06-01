@@ -23,10 +23,11 @@
     <?php elseif (empty($students)): ?>
         <p>Chưa có sinh viên. <a href="<?= BASE_URL ?>/dbtest/install">Cài đặt database</a> để tạo bảng và dữ liệu mẫu.</p>
     <?php else: ?>
+        <p><strong>Tổng số:</strong> <?= (int) ($total ?? count($students)) ?> sinh viên</p>
         <table>
             <thead>
                 <tr>
-                    <th>ID</th>
+                    <th>STT</th>
                     <th>Mã SV</th>
                     <th>Họ tên</th>
                     <th>Email</th>
@@ -34,9 +35,9 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($students as $sv): ?>
+                <?php foreach ($students as $i => $sv): ?>
                 <tr>
-                    <td><?= (int) $sv['id'] ?></td>
+                    <td><?= $i + 1 ?></td>
                     <td><?= htmlspecialchars($sv['ma_sv']) ?></td>
                     <td><?= htmlspecialchars($sv['ho_ten']) ?></td>
                     <td><?= htmlspecialchars($sv['email'] ?? '') ?></td>

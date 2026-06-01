@@ -11,6 +11,7 @@ class students extends Controller
             $this->view('students/index', [
                 'title' => 'Danh sách sinh viên',
                 'students' => $students,
+                'total' => count($students),
             ]);
         } catch (Throwable $e) {
             $this->view('students/index', [
