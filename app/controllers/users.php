@@ -11,13 +11,13 @@ class users extends Controller
             $this->view('users/index', [
                 'title' => 'Danh sách người dùng',
                 'users' => $users,
-            ]);
+            ], 'layoutmaster');
         } catch (Throwable $e) {
             $this->view('users/index', [
                 'title' => 'Danh sách người dùng',
                 'users' => [],
                 'error' => $e->getMessage(),
-            ]);
+            ], 'layoutmaster');
         }
     }
 }

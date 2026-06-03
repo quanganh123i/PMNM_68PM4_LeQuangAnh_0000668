@@ -10,13 +10,15 @@ class dbtest extends Controller
             $row = $stmt->fetch();
 
             $this->view('dbtest/index', [
+                'title' => 'Kiểm tra Database',
                 'ok' => $row['ok'] ?? null,
                 'db_name' => $row['db_name'] ?? DB_NAME,
-            ]);
+            ], 'layoutmaster');
         } catch (Throwable $e) {
             $this->view('dbtest/index', [
+                'title' => 'Kiểm tra Database',
                 'error' => $e->getMessage(),
-            ]);
+            ], 'layoutmaster');
         }
     }
 
@@ -78,14 +80,16 @@ class dbtest extends Controller
             }
 
             $this->view('dbtest/install', [
+                'title' => 'Cài đặt Database',
                 'success' => true,
                 'db_name' => $dbName,
-            ]);
+            ], 'layoutmaster');
         } catch (Throwable $e) {
             $this->view('dbtest/install', [
+                'title' => 'Cài đặt Database',
                 'success' => false,
                 'error' => $e->getMessage(),
-            ]);
+            ], 'layoutmaster');
         }
     }
 }

@@ -12,13 +12,13 @@ class students extends Controller
                 'title' => 'Danh sách sinh viên',
                 'students' => $students,
                 'total' => count($students),
-            ]);
+            ], 'layoutmaster');
         } catch (Throwable $e) {
             $this->view('students/index', [
                 'title' => 'Danh sách sinh viên',
                 'students' => [],
                 'error' => $e->getMessage(),
-            ]);
+            ], 'layoutmaster');
         }
     }
 }
