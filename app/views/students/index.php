@@ -1,3 +1,5 @@
+<p><a href="<?= BASE_URL ?>/students/create">+ Thêm sinh viên</a></p>
+
 <?php if (!empty($error)): ?>
     <p class="error">Lỗi DB: <?= htmlspecialchars($error) ?></p>
     <p>Chưa có bảng sinh viên? Mở <a href="<?= BASE_URL ?>/dbtest/install">Cài đặt database</a></p>

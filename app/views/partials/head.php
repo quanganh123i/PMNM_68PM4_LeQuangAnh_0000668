@@ -13,5 +13,10 @@
         th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
         th { background: #f5f5f5; }
         .error { color: #c00; }
+        .student-form label { display: inline-block; min-width: 80px; font-weight: bold; }
+        .student-form input[type="text"],
+        .student-form input[type="email"] { width: 100%; max-width: 400px; padding: 8px; margin-top: 4px; box-sizing: border-box; }
+        .student-form button { padding: 8px 16px; cursor: pointer; }
+        .required { color: #c00; }
     </style>
 </head>

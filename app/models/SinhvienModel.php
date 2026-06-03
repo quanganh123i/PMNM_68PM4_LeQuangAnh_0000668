@@ -19,4 +19,19 @@ class SinhvienModel
 
         return $stmt->fetchAll();
     }
+
+    public function create(array $data): bool
+    {
+        $stmt = $this->db->prepare(
+            'INSERT INTO students (ma_sv, ho_ten, email, lop)
+             VALUES (:ma_sv, :ho_ten, :email, :lop)'
+        );
+
+        return $stmt->execute([
+            'ma_sv' => $data['ma_sv'],
+            'ho_ten' => $data['ho_ten'],
+            'email' => $data['email'] ?? null,
+            'lop' => $data['lop'] ?? null,
+        ]);
+    }
 }
