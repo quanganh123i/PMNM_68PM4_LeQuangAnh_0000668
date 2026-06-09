@@ -20,7 +20,7 @@
         <tbody>
             <?php foreach ($students as $i => $sv): ?>
             <tr>
-                <td><?= $i + 1 ?></td>
+                <td><?= ($page - 1) * 5 + $i + 1 ?></td>
                 <td><?= htmlspecialchars($sv['ma_sv']) ?></td>
                 <td><?= htmlspecialchars($sv['ho_ten']) ?></td>
                 <td><?= htmlspecialchars($sv['email'] ?? '') ?></td>
@@ -29,4 +29,14 @@
             <?php endforeach; ?>
         </tbody>
     </table>
+
+    <?php if ($totalPages > 1): ?>
+        <div class="pagination">
+            <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                <a href="<?= BASE_URL ?>/students?page=<?= $i ?>" <?= $i == $page ? 'style="font-weight:bold"' : '' ?>>
+                    <?= $i ?>
+                </a>
+            <?php endfor; ?>
+        </div>
+    <?php endif; ?>
 <?php endif; ?>

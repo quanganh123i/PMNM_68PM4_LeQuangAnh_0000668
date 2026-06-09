@@ -20,6 +20,26 @@ class SinhvienModel
         return $stmt->fetchAll();
     }
 
+    public function countAll(): int
+    {
+        $stmt = $this->db->query('SELECT COUNT(*) FROM students');
+        return (int) $stmt->fetchColumn();
+    }
+
+    public function getPaginated(int $limit, int $offset): array
+    {
+        $stmt = $this->db->prepare(
+            'SELECT id, ma_sv, ho_ten, email, lop, created_at
+             FROM students
+             ORDER BY ma_sv ASC
+             LIMIT :limit OFFSET :offset'
+        );
+        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
     public function create(array $data): bool
     {
         $stmt = $this->db->prepare(

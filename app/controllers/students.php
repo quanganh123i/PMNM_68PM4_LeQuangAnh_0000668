@@ -6,12 +6,22 @@ class students extends Controller
     {
         try {
             $sinhVienModel = $this->model('SinhvienModel');
-            $students = $sinhVienModel->getAll();
+            
+            $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+            if ($page < 1) $page = 1;
+            $limit = 5;
+            $offset = ($page - 1) * $limit;
+            
+            $total = $sinhVienModel->countAll();
+            $students = $sinhVienModel->getPaginated($limit, $offset);
+            $totalPages = ceil($total / $limit);
 
             $this->view('students/index', [
                 'title' => 'Danh sách sinh viên',
                 'students' => $students,
-                'total' => count($students),
+                'total' => $total,
+                'page' => $page,
+                'totalPages' => $totalPages,
             ], 'layoutmaster');
         } catch (Throwable $e) {
             $this->view('students/index', [
