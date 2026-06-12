@@ -125,4 +125,14 @@ class students extends Controller
             'id' => $id
         ], 'layoutmaster');
     }
+
+    public function delete($id)
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $sinhVienModel = $this->model('SinhvienModel');
+            $sinhVienModel->delete((int)$id);
+        }
+        header('Location: ' . BASE_URL . '/students');
+        exit();
+    }
 }

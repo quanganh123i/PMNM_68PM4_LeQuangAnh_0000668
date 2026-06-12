@@ -26,7 +26,12 @@
                 <td><?= htmlspecialchars($sv['ho_ten']) ?></td>
                 <td><?= htmlspecialchars($sv['email'] ?? '') ?></td>
                 <td><?= htmlspecialchars($sv['lop'] ?? '') ?></td>
-                <td><a href="<?= BASE_URL ?>/students/edit/<?= $sv['id'] ?>">Sửa</a></td>
+                <td>
+                    <a href="<?= BASE_URL ?>/students/edit/<?= $sv['id'] ?>">Sửa</a>
+                    <form action="<?= BASE_URL ?>/students/delete/<?= $sv['id'] ?>" method="POST" style="display:inline;" onsubmit="return confirm('Bạn có chắc chắn muốn xóa?');">
+                        <button type="submit">Xóa</button>
+                    </form>
+                </td>
             </tr>
             <?php endforeach; ?>
         </tbody>

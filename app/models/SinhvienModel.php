@@ -79,4 +79,10 @@ class SinhvienModel
             'lop' => $data['lop'] ?? null,
         ]);
     }
+
+    public function delete(int $id): bool
+    {
+        $stmt = $this->db->prepare('DELETE FROM students WHERE id = :id');
+        return $stmt->execute(['id' => $id]);
+    }
 }
