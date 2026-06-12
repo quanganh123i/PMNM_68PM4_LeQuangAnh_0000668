@@ -15,6 +15,7 @@
                 <th>Họ tên</th>
                 <th>Email</th>
                 <th>Lớp</th>
+                <th>Thao tác</th>
             </tr>
         </thead>
         <tbody>
@@ -25,6 +26,7 @@
                 <td><?= htmlspecialchars($sv['ho_ten']) ?></td>
                 <td><?= htmlspecialchars($sv['email'] ?? '') ?></td>
                 <td><?= htmlspecialchars($sv['lop'] ?? '') ?></td>
+                <td><a href="<?= BASE_URL ?>/students/edit/<?= $sv['id'] ?>">Sửa</a></td>
             </tr>
             <?php endforeach; ?>
         </tbody>
