@@ -1,5 +1,13 @@
 <p><a href="<?= BASE_URL ?>/students/create">+ Thêm sinh viên</a></p>
 
+<form action="<?= BASE_URL ?>/students" method="GET" style="margin-bottom: 15px;">
+    <input type="text" name="search" value="<?= htmlspecialchars($search ?? '') ?>" placeholder="Tìm theo MSSV, tên, lớp...">
+    <button type="submit">Tìm kiếm</button>
+    <?php if (!empty($search)): ?>
+        <a href="<?= BASE_URL ?>/students">Hủy</a>
+    <?php endif; ?>
+</form>
+
 <?php if (!empty($error)): ?>
     <p class="error">Lỗi DB: <?= htmlspecialchars($error) ?></p>
     <p>Chưa có bảng sinh viên? Mở <a href="<?= BASE_URL ?>/dbtest/install">Cài đặt database</a></p>
@@ -40,7 +48,7 @@
     <?php if ($totalPages > 1): ?>
         <div class="pagination">
             <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-                <a href="<?= BASE_URL ?>/students?page=<?= $i ?>" <?= $i == $page ? 'style="font-weight:bold"' : '' ?>>
+                <a href="<?= BASE_URL ?>/students?page=<?= $i ?><?= $search ? '&search=' . urlencode($search) : '' ?>" <?= $i == $page ? 'style="font-weight:bold"' : '' ?>>
                     <?= $i ?>
                 </a>
             <?php endfor; ?>

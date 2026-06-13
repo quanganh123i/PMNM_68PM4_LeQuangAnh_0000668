@@ -21,23 +21,42 @@ class SinhvienModel
         return $stmt->fetchAll();
     }
 
-    public function countAll(): int
+    public function countAll(?string $search = null): int
     {
-        $stmt = $this->db->query('SELECT COUNT(*) FROM students');
+        $sql = 'SELECT COUNT(*) FROM students s LEFT JOIN lophoc l ON s.lop_id = l.id';
+        if ($search) {
+            $sql .= ' WHERE s.ma_sv LIKE :search1 OR s.ho_ten LIKE :search2 OR l.ten_lop LIKE :search3';
+        }
+        $stmt = $this->db->prepare($sql);
+        if ($search) {
+            $stmt->bindValue(':search1', '%' . $search . '%');
+            $stmt->bindValue(':search2', '%' . $search . '%');
+            $stmt->bindValue(':search3', '%' . $search . '%');
+        }
+        $stmt->execute();
         return (int) $stmt->fetchColumn();
     }
 
-    public function getPaginated(int $limit, int $offset): array
+    public function getPaginated(int $limit, int $offset, ?string $search = null): array
     {
-        $stmt = $this->db->prepare(
-            'SELECT s.id, s.ma_sv, s.ho_ten, s.email, s.lop_id, l.ten_lop, s.created_at
+        $sql = 'SELECT s.id, s.ma_sv, s.ho_ten, s.email, s.lop_id, l.ten_lop, s.created_at
              FROM students s
-             LEFT JOIN lophoc l ON s.lop_id = l.id
-             ORDER BY s.ma_sv ASC
-             LIMIT :limit OFFSET :offset'
-        );
+             LEFT JOIN lophoc l ON s.lop_id = l.id';
+        
+        if ($search) {
+            $sql .= ' WHERE s.ma_sv LIKE :search1 OR s.ho_ten LIKE :search2 OR l.ten_lop LIKE :search3';
+        }
+        
+        $sql .= ' ORDER BY s.ma_sv ASC LIMIT :limit OFFSET :offset';
+        
+        $stmt = $this->db->prepare($sql);
         $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
         $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+        if ($search) {
+            $stmt->bindValue(':search1', '%' . $search . '%');
+            $stmt->bindValue(':search2', '%' . $search . '%');
+            $stmt->bindValue(':search3', '%' . $search . '%');
+        }
         $stmt->execute();
         return $stmt->fetchAll();
     }
