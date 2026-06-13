@@ -21,5 +21,12 @@ CREATE TABLE IF NOT EXISTS students (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+CREATE TABLE IF NOT EXISTS lophoc (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  ma_lop VARCHAR(20) NOT NULL UNIQUE,
+  ten_lop VARCHAR(100) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 -- Tài khoản: admin / 123456 (mật khẩu được hash bằng PHP password_hash)
 -- Nếu import tay, chạy /dbtest/install để tạo user admin và dữ liệu mẫu sinh viên.
