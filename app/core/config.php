@@ -11,3 +11,6 @@ define('DB_PORT', getenv('DB_PORT') ?: '3306');
 define('DB_NAME', getenv('DB_NAME') ?: 'pmnm_db');
 define('DB_USER', getenv('DB_USER') ?: 'root');
 define('DB_PASS', getenv('DB_PASS') ?: '');
+
+// Debug: In ra DB_NAME để kiểm tra
+// echo "DB_NAME: " . DB_NAME; exit;

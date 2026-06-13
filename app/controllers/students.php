@@ -42,7 +42,7 @@ class students extends Controller
                 'ma_sv' => trim($_POST['ma_sv'] ?? ''),
                 'ho_ten' => trim($_POST['ho_ten'] ?? ''),
                 'email' => trim($_POST['email'] ?? ''),
-                'lop' => trim($_POST['lop'] ?? ''),
+                'lop_id' => trim($_POST['lop_id'] ?? ''),
             ];
 
             if ($old['ma_sv'] === '' || $old['ho_ten'] === '') {
@@ -54,7 +54,7 @@ class students extends Controller
                         'ma_sv' => $old['ma_sv'],
                         'ho_ten' => $old['ho_ten'],
                         'email' => $old['email'] !== '' ? $old['email'] : null,
-                        'lop' => $old['lop'] !== '' ? $old['lop'] : null,
+                        'lop_id' => $old['lop_id'] !== '' ? (int)$old['lop_id'] : null,
                     ]);
                     header('Location: ' . BASE_URL . '/students');
                     exit();
@@ -68,10 +68,14 @@ class students extends Controller
             }
         }
 
+        $lophocModel = $this->model('LophocModel');
+        $lophocs = $lophocModel->getAll();
+
         $this->view('students/create', [
             'title' => 'Thêm sinh viên',
             'error' => $error,
             'old' => $old,
+            'lophocs' => $lophocs,
         ], 'layoutmaster');
     }
 
@@ -93,7 +97,7 @@ class students extends Controller
                 'ma_sv' => trim($_POST['ma_sv'] ?? ''),
                 'ho_ten' => trim($_POST['ho_ten'] ?? ''),
                 'email' => trim($_POST['email'] ?? ''),
-                'lop' => trim($_POST['lop'] ?? ''),
+                'lop_id' => trim($_POST['lop_id'] ?? ''),
             ];
 
             if ($old['ma_sv'] === '' || $old['ho_ten'] === '') {
@@ -104,7 +108,7 @@ class students extends Controller
                         'ma_sv' => $old['ma_sv'],
                         'ho_ten' => $old['ho_ten'],
                         'email' => $old['email'] !== '' ? $old['email'] : null,
-                        'lop' => $old['lop'] !== '' ? $old['lop'] : null,
+                        'lop_id' => $old['lop_id'] !== '' ? (int)$old['lop_id'] : null,
                     ]);
                     header('Location: ' . BASE_URL . '/students');
                     exit();
@@ -118,11 +122,15 @@ class students extends Controller
             }
         }
 
+        $lophocModel = $this->model('LophocModel');
+        $lophocs = $lophocModel->getAll();
+
         $this->view('students/edit', [
             'title' => 'Cập nhật sinh viên',
             'error' => $error,
             'old' => $old,
-            'id' => $id
+            'id' => $id,
+            'lophocs' => $lophocs,
         ], 'layoutmaster');
     }
 

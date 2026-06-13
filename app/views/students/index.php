@@ -25,7 +25,7 @@
                 <td><?= htmlspecialchars($sv['ma_sv']) ?></td>
                 <td><?= htmlspecialchars($sv['ho_ten']) ?></td>
                 <td><?= htmlspecialchars($sv['email'] ?? '') ?></td>
-                <td><?= htmlspecialchars($sv['lop'] ?? '') ?></td>
+                <td><?= htmlspecialchars($sv['ten_lop'] ?? '') ?></td>
                 <td>
                     <a href="<?= BASE_URL ?>/students/edit/<?= $sv['id'] ?>">Sửa</a>
                     <form action="<?= BASE_URL ?>/students/delete/<?= $sv['id'] ?>" method="POST" style="display:inline;" onsubmit="return confirm('Bạn có chắc chắn muốn xóa?');">

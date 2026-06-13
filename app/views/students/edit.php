@@ -18,8 +18,15 @@
         <input type="email" id="email" name="email" value="<?= htmlspecialchars($old['email'] ?? '') ?>" maxlength="100">
     </p>
     <p>
-        <label for="lop">Lớp</label><br>
-        <input type="text" id="lop" name="lop" value="<?= htmlspecialchars($old['lop'] ?? '') ?>" maxlength="50">
+        <label for="lop_id">Lớp</label><br>
+        <select id="lop_id" name="lop_id">
+            <option value="">-- Chọn lớp --</option>
+            <?php foreach ($lophocs as $lop): ?>
+                <option value="<?= $lop['id'] ?>" <?= (isset($old['lop_id']) && $old['lop_id'] == $lop['id']) ? 'selected' : '' ?>>
+                    <?= htmlspecialchars($lop['ten_lop']) ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
     </p>
     <p>
         <button type="submit">Cập nhật sinh viên</button>

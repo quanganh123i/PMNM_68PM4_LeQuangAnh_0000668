@@ -1,4 +1,3 @@
--- Import file này trong phpMyAdmin (XAMPP) hoặc mở /dbtest/install một lần
 CREATE DATABASE IF NOT EXISTS pmnm_db
   CHARACTER SET utf8mb4
   COLLATE utf8mb4_unicode_ci;
@@ -12,15 +11,6 @@ CREATE TABLE IF NOT EXISTS users (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE IF NOT EXISTS students (
-  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  ma_sv VARCHAR(20) NOT NULL UNIQUE,
-  ho_ten VARCHAR(100) NOT NULL,
-  email VARCHAR(100) DEFAULT NULL,
-  lop VARCHAR(50) DEFAULT NULL,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
 CREATE TABLE IF NOT EXISTS lophoc (
   id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   ma_lop VARCHAR(20) NOT NULL UNIQUE,
@@ -28,5 +18,23 @@ CREATE TABLE IF NOT EXISTS lophoc (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Tài khoản: admin / 123456 (mật khẩu được hash bằng PHP password_hash)
--- Nếu import tay, chạy /dbtest/install để tạo user admin và dữ liệu mẫu sinh viên.
+CREATE TABLE IF NOT EXISTS students (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  ma_sv VARCHAR(20) NOT NULL UNIQUE,
+  ho_ten VARCHAR(100) NOT NULL,
+  email VARCHAR(100) DEFAULT NULL,
+  lop_id INT UNSIGNED DEFAULT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (lop_id) REFERENCES lophoc(id) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Dữ liệu mẫu
+INSERT INTO lophoc (ma_lop, ten_lop) VALUES 
+('CNTT1', 'Công nghệ thông tin 1'),
+('CNTT2', 'Công nghệ thông tin 2');
+
+INSERT INTO students (ma_sv, ho_ten, lop_id) VALUES 
+('SV001', 'Nguyễn Văn A', 1),
+('SV002', 'Trần Thị B', 2);
+
+-- Tài khoản: admin / 123456 

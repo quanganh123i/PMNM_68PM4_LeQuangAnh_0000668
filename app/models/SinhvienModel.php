@@ -12,9 +12,10 @@ class SinhvienModel
     public function getAll(): array
     {
         $stmt = $this->db->query(
-            'SELECT id, ma_sv, ho_ten, email, lop, created_at
-             FROM students
-             ORDER BY ma_sv ASC'
+            'SELECT s.id, s.ma_sv, s.ho_ten, s.email, s.lop_id, l.ten_lop, s.created_at
+             FROM students s
+             LEFT JOIN lophoc l ON s.lop_id = l.id
+             ORDER BY s.ma_sv ASC'
         );
 
         return $stmt->fetchAll();
@@ -29,9 +30,10 @@ class SinhvienModel
     public function getPaginated(int $limit, int $offset): array
     {
         $stmt = $this->db->prepare(
-            'SELECT id, ma_sv, ho_ten, email, lop, created_at
-             FROM students
-             ORDER BY ma_sv ASC
+            'SELECT s.id, s.ma_sv, s.ho_ten, s.email, s.lop_id, l.ten_lop, s.created_at
+             FROM students s
+             LEFT JOIN lophoc l ON s.lop_id = l.id
+             ORDER BY s.ma_sv ASC
              LIMIT :limit OFFSET :offset'
         );
         $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
@@ -43,21 +45,21 @@ class SinhvienModel
     public function create(array $data): bool
     {
         $stmt = $this->db->prepare(
-            'INSERT INTO students (ma_sv, ho_ten, email, lop)
-             VALUES (:ma_sv, :ho_ten, :email, :lop)'
+            'INSERT INTO students (ma_sv, ho_ten, email, lop_id)
+             VALUES (:ma_sv, :ho_ten, :email, :lop_id)'
         );
 
         return $stmt->execute([
             'ma_sv' => $data['ma_sv'],
             'ho_ten' => $data['ho_ten'],
             'email' => $data['email'] ?? null,
-            'lop' => $data['lop'] ?? null,
+            'lop_id' => $data['lop_id'] ?? null,
         ]);
     }
 
     public function getById(int $id): ?array
     {
-        $stmt = $this->db->prepare('SELECT id, ma_sv, ho_ten, email, lop FROM students WHERE id = :id');
+        $stmt = $this->db->prepare('SELECT id, ma_sv, ho_ten, email, lop_id FROM students WHERE id = :id');
         $stmt->execute(['id' => $id]);
         $result = $stmt->fetch();
         return $result ?: null;
@@ -67,7 +69,7 @@ class SinhvienModel
     {
         $stmt = $this->db->prepare(
             'UPDATE students 
-             SET ma_sv = :ma_sv, ho_ten = :ho_ten, email = :email, lop = :lop 
+             SET ma_sv = :ma_sv, ho_ten = :ho_ten, email = :email, lop_id = :lop_id 
              WHERE id = :id'
         );
 
@@ -76,7 +78,7 @@ class SinhvienModel
             'ma_sv' => $data['ma_sv'],
             'ho_ten' => $data['ho_ten'],
             'email' => $data['email'] ?? null,
-            'lop' => $data['lop'] ?? null,
+            'lop_id' => $data['lop_id'] ?? null,
         ]);
     }
 

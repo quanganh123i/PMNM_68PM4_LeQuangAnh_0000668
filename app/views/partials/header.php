@@ -4,6 +4,7 @@
     <nav class="site-nav">
         <a href="<?= BASE_URL ?>/home">Trang chủ</a>
         <a href="<?= BASE_URL ?>/students">Danh sách sinh viên</a>
+        <a href="<?= BASE_URL ?>/lophoc">Danh sách lớp học</a>
         <a href="<?= BASE_URL ?>/users">Danh sách users (DB)</a>
         <a href="<?= BASE_URL ?>/dbtest">Kiểm tra DB</a>
         <a href="<?= BASE_URL ?>/auth/logout">Đăng xuất</a>
