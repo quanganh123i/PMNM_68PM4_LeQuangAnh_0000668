@@ -2,6 +2,11 @@
 
 <form action="<?= BASE_URL ?>/students" method="GET" style="margin-bottom: 15px;">
     <input type="text" name="search" value="<?= htmlspecialchars($search ?? '') ?>" placeholder="Tìm theo MSSV, tên, lớp...">
+    <select name="limit">
+        <option value="5" <?= $limit == 5 ? 'selected' : '' ?>>5</option>
+        <option value="10" <?= $limit == 10 ? 'selected' : '' ?>>10</option>
+        <option value="20" <?= $limit == 20 ? 'selected' : '' ?>>20</option>
+    </select>
     <button type="submit">Tìm kiếm</button>
     <?php if (!empty($search)): ?>
         <a href="<?= BASE_URL ?>/students">Hủy</a>
@@ -29,7 +34,7 @@
         <tbody>
             <?php foreach ($students as $i => $sv): ?>
             <tr>
-                <td><?= ($page - 1) * 5 + $i + 1 ?></td>
+                <td><?= ($page - 1) * $limit + $i + 1 ?></td>
                 <td><?= htmlspecialchars($sv['ma_sv']) ?></td>
                 <td><?= htmlspecialchars($sv['ho_ten']) ?></td>
                 <td><?= htmlspecialchars($sv['email'] ?? '') ?></td>
@@ -47,8 +52,14 @@
 
     <?php if ($totalPages > 1): ?>
         <div class="pagination">
+            <?php 
+                $query = [];
+                if ($search) $query['search'] = $search;
+                if ($limit) $query['limit'] = $limit;
+                $queryString = !empty($query) ? '&' . http_build_query($query) : '';
+            ?>
             <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-                <a href="<?= BASE_URL ?>/students?page=<?= $i ?><?= $search ? '&search=' . urlencode($search) : '' ?>" <?= $i == $page ? 'style="font-weight:bold"' : '' ?>>
+                <a href="<?= BASE_URL ?>/students?page=<?= $i ?><?= $queryString ?>" <?= $i == $page ? 'style="font-weight:bold"' : '' ?>>
                     <?= $i ?>
                 </a>
             <?php endfor; ?>

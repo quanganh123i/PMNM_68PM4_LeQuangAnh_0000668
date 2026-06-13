@@ -8,9 +8,10 @@ class students extends Controller
             $sinhVienModel = $this->model('SinhvienModel');
             
             $search = $_GET['search'] ?? null;
+            $limit = isset($_GET['limit']) ? (int)$_GET['limit'] : 5;
+            if ($limit < 1) $limit = 5;
             $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
             if ($page < 1) $page = 1;
-            $limit = 5;
             $offset = ($page - 1) * $limit;
             
             $total = $sinhVienModel->countAll($search);
@@ -24,6 +25,7 @@ class students extends Controller
                 'page' => $page,
                 'totalPages' => $totalPages,
                 'search' => $search,
+                'limit' => $limit,
             ], 'layoutmaster');
         } catch (Throwable $e) {
             $this->view('students/index', [
